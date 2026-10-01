@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bọ Six — Tour cắm trại giải đố</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #16281F;
+    --forest-2: #1F3C2C;
+    --forest-3: #2A4D38;
+    --moss: #63B583;
+    --moss-light: #9AD4AF;
+    --sunset: #F2622E;
+    --sunset-dark: #D14E1F;
+    --gold: #F0B429;
+    --cream: #F5F1E6;
+    --paper: #FBF8F0;
+    --ink: #16211C;
+    --ink-soft: #47564C;
+    --line: rgba(22,33,23,0.12);
+    --line-light: rgba(245,241,230,0.18);
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: 90px; scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  section { position: relative; }
+
+  /* ---------- Contour line motif (used as section dividers) ---------- */
+  .contour {
+    width: 100%;
+    height: 48px;
+    display: block;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(22,40,31,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-light);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px; max-width: 1180px; margin: 0 auto;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    color: var(--cream); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .brand .mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--sunset);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; color: var(--forest); font-size: 17px;
+    transform: rotate(-4deg);
+  }
+  .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a {
+    color: var(--cream); text-decoration: none; font-size: 15px; font-weight: 500;
+    opacity: 0.82; transition: opacity 0.15s ease;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--sunset); color: var(--paper); padding: 10px 20px;
+    border-radius: 8px; font-weight: 600; font-size: 14.5px; text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-toggle {
+      display: block; background: none; border: 1px solid var(--line-light);
+      color: var(--cream); width: 40px; height: 40px; border-radius: 8px; font-size: 18px;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 64px 0 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 600px 300px at 85% 10%, rgba(240,180,41,0.12), transparent),
+      radial-gradient(ellipse 500px 400px at 10% 90%, rgba(99,181,131,0.15), transparent);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .eyebrow-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(99,181,131,0.14); border: 1px solid rgba(99,181,131,0.35);
+    color: var(--moss-light); padding: 7px 14px; border-radius: 100px;
+    font-size: 13.5px; font-weight: 600; margin-bottom: 26px;
+  }
+  .eyebrow-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--moss-light); }
+  h1.hero-title {
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 5.2vw, 64px);
+    line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 22px;
+  }
+  h1.hero-title em { font-style: italic; color: var(--gold); font-weight: 500; }
+  .hero-sub {
+    font-size: 18px; color: rgba(245,241,230,0.78); max-width: 480px; margin: 0 0 34px;
+    line-height: 1.6;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; border-radius: 9px; font-weight: 600; font-size: 15.5px;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--sunset); color: var(--paper); }
+  .btn-primary:hover { box-shadow: 0 8px 24px rgba(242,98,46,0.35); }
+  .btn-ghost { background: transparent; color: var(--cream); border-color: rgba(245,241,230,0.3); }
+  .btn-ghost:hover { border-color: rgba(245,241,230,0.6); }
+
+  .hero-stats { display: flex; gap: 36px; }
+  .hstat b { display: block; font-family: var(--font-display); font-size: 27px; color: var(--gold); font-weight: 600; }
+  .hstat span { font-size: 13.5px; color: rgba(245,241,230,0.62); }
+
+  /* ---------- Riddle card in hero ---------- */
+  .riddle-card {
+    background: var(--forest-2);
+    border: 1px solid rgba(240,180,41,0.25);
+    border-radius: 16px;
+    padding: 30px 28px 26px;
+    position: relative;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .riddle-card::before {
+    content: "Câu đố tuần này";
+    position: absolute; top: -13px; left: 24px;
+    background: var(--gold); color: var(--forest);
+    font-size: 12.5px; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+  }
+  .riddle-text {
+    font-family: var(--font-display); font-style: italic; font-size: 19px;
+    line-height: 1.55; color: var(--cream); margin: 14px 0 20px;
+  }
+  .riddle-actions { display: flex; gap: 10px; margin-bottom: 18px; }
+  .riddle-opt {
+    flex: 1; background: rgba(245,241,230,0.06); border: 1px solid rgba(245,241,230,0.16);
+    color: var(--cream); padding: 11px 10px; border-radius: 8px; font-size: 14px;
+    cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500;
+    transition: all 0.15s ease;
+  }
+  .riddle-opt:hover { border-color: var(--moss-light); background: rgba(99,181,131,0.1); }
+  .riddle-opt.correct { background: rgba(99,181,131,0.22); border-color: var(--moss); }
+  .riddle-opt.wrong { background: rgba(242,98,46,0.15); border-color: var(--sunset); opacity: 0.6; }
+  .riddle-feedback {
+    font-size: 14px; color: var(--moss-light); min-height: 20px; font-weight: 500;
+  }
+
+  /* ---------- Section headers ---------- */
+  .section-head { max-width: 620px; margin-bottom: 48px; }
+  .section-head .kicker {
+    font-size: 14px; font-weight: 600; color: var(--sunset); margin: 0 0 10px;
+  }
+  .section-head h2 {
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 14px; color: var(--forest);
+  }
+  .section-head p { font-size: 16.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+  .light-on-dark .section-head h2 { color: var(--cream); }
+  .light-on-dark .section-head p { color: rgba(245,241,230,0.72); }
+
+  section.pad { padding: 100px 0; }
+  @media (max-width: 700px) { section.pad { padding: 72px 0; } }
+
+  /* ============================================================
+     PRODUCT TIERS — styled as trail-difficulty signage
+     ============================================================ */
+  .tiers-section { background: var(--paper); }
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  @media (max-width: 940px) { .tier-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; } }
+
+  .tier-card {
+    border-radius: 18px; padding: 34px 30px 32px; position: relative;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--line);
+    background: var(--cream);
+  }
+  .tier-card.tier-feature {
+    background: var(--forest); color: var(--cream);
+    border-color: var(--forest);
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px -25px rgba(22,40,31,0.45);
+  }
+  @media (max-width: 940px) { .tier-card.tier-feature { transform: none; } }
+
+  .tier-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+    padding: 6px 13px; border-radius: 100px; margin-bottom: 22px; width: fit-content;
+  }
+  .tier-badge.easy { background: rgba(99,181,131,0.14); color: #2A7A4C; }
+  .tier-badge.moderate { background: rgba(240,180,41,0.18); color: #A5730C; }
+  .tier-badge.expert { background: rgba(242,98,46,0.2); color: var(--gold); }
+  .tier-trail-icon { width: 12px; height: 12px; }
+
+  .tier-card h3 {
+    font-family: var(--font-display); font-weight: 600; font-size: 25px; margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .tier-tagline { font-size: 14.5px; color: var(--ink-soft); margin: 0 0 22px; }
+  .tier-feature .tier-tagline { color: rgba(245,241,230,0.68); }
+
+  .tier-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px; }
+  .tier-price .amt { font-family: var(--font-display); font-size: 34px; font-weight: 600; }
+  .tier-price .unit { font-size: 13.5px; color: var(--ink-soft); }
+  .tier-feature .tier-price .unit { color: rgba(245,241,230,0.6); }
+  .tier-feature .tier-price .amt { color: var(--gold); }
+
+  .tier-features { list-style: none; margin: 0 0 28px; padding: 0; flex-grow: 1; }
+  .tier-features li {
+    display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px;
+    padding: 9px 0; border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .tier-feature .tier-features li { border-top-color: rgba(245,241,230,0.12); color: rgba(245,241,230,0.82); }
+  .tier-features li:first-child { border-top: none; }
+  .tier-features li svg { flex-shrink: 0; margin-top: 3px; }
+  .tier-features li .chk { stroke: var(--moss); }
+  .tier-feature .tier-features li .chk { stroke: var(--moss-light); }
+
+  .tier-cta {
+    display: block; text-align: center; padding: 13px; border-radius: 9px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    background: var(--forest); color: var(--paper);
+  }
+  .tier-feature .tier-cta { background: var(--sunset); color: var(--paper); }
+  .tier-cta:hover { opacity: 0.92; }
+
+  .tier-riddle-diff {
+    display: flex; gap: 4px; align-items: center; margin-top: 18px;
+    font-size: 12.5px; color: var(--ink-soft);
+  }
+  .tier-feature .tier-riddle-diff { color: rgba(245,241,230,0.55); }
+  .diff-pip { width: 16px; height: 4px; border-radius: 2px; background: var(--line); }
+  .diff-pip.on { background: var(--sunset); }
+  .tier-feature .diff-pip { background: rgba(245,241,230,0.18); }
+  .tier-feature .diff-pip.on { background: var(--gold); }
+
+  /* ============================================================
+     HOW IT WORKS — process
+     ============================================================ */
+  .process-section { background: var(--cream); }
+  .process-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    position: relative;
+  }
+  @media (max-width: 860px) { .process-row { grid-template-columns: 1fr; gap: 34px; } }
+  .process-row::before {
+    content: ""; position: absolute; top: 22px; left: 8%; right: 8%; height: 2px;
+    background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 16px);
+  }
+  @media (max-width: 860px) { .process-row::before { display: none; } }
+  .process-step { position: relative; padding-right: 20px; }
+  .process-num {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--paper);
+    border: 2px solid var(--forest); color: var(--forest);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 19px;
+    position: relative; z-index: 1; margin-bottom: 18px;
+  }
+  .process-step:nth-child(2) .process-num,
+  .process-step:nth-child(4) .process-num { border-color: var(--sunset); color: var(--sunset); }
+  .process-step h4 { font-size: 16.5px; font-weight: 600; margin: 0 0 8px; color: var(--forest); }
+  .process-step p { font-size: 14.5px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+
+  /* ============================================================
+     DESTINATIONS (from framework's Explore Vietnam section)
+     ============================================================ */
+  .dest-section { background: var(--paper); }
+  .dest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .dest-grid { grid-template-columns: 1fr; } }
+  .dest-card {
+    border-radius: 16px; overflow: hidden; position: relative;
+    aspect-ratio: 4/5; display: flex; align-items: flex-end;
+    border: 1px solid var(--line);
+  }
+  .dest-card .dest-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(155deg, var(--forest-3), var(--forest));
+  }
+  .dest-card:nth-child(2) .dest-bg { background: linear-gradient(155deg, #3A5A42, var(--forest-2)); }
+  .dest-card:nth-child(3) .dest-bg { background: linear-gradient(155deg, #4A6350, var(--forest-3)); }
+  .dest-content { position: relative; z-index: 1; padding: 26px 22px; color: var(--cream); width: 100%; }
+  .dest-tag {
+    display: inline-block; font-size: 12px; font-weight: 700; color: var(--gold);
+    background: rgba(22,33,23,0.4); padding: 4px 10px; border-radius: 100px; margin-bottom: 10px;
+  }
+  .dest-content h4 { font-family: var(--font-display); font-size: 22px; font-weight: 600; margin: 0 0 6px; }
+  .dest-content p { font-size: 13.5px; color: rgba(245,241,230,0.75); margin: 0; }
+
+  /* ============================================================
+     SUSTAINABILITY + SAFETY strip
+     ============================================================ */
+  .trust-section { background: var(--forest); color: var(--cream); }
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  @media (max-width: 860px) { .trust-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .trust-grid { grid-template-columns: 1fr; } }
+  .trust-item { text-align: left; }
+  .trust-item .ti-icon {
+    width: 44px; height: 44px; border-radius: 11px; background: rgba(99,181,131,0.15);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+  .trust-item h4 { font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+  .trust-item p { font-size: 14px; color: rgba(245,241,230,0.65); margin: 0; line-height: 1.55; }
+
+  /* ============================================================
+     FAQ
+     ============================================================ */
+  .faq-section { background: var(--cream); }
+  .faq-list { max-width: 760px; }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+    padding: 22px 0; display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-body); font-size: 16.5px; font-weight: 600; color: var(--forest);
+  }
+  .faq-q .plus { font-size: 20px; color: var(--sunset); transition: transform 0.2s ease; flex-shrink: 0; margin-left: 20px; }
+  .faq-item.open .faq-q .plus { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.25s ease;
+    font-size: 15px; color: var(--ink-soft); line-height: 1.6;
+  }
+  .faq-item.open .faq-a { max-height: 220px; }
+  .faq-a-inner { padding-bottom: 22px; }
+
+  /* ============================================================
+     Final CTA
+     ============================================================ */
+  .final-cta { background: var(--sunset); color: var(--paper); text-align: center; }
+  .final-cta h2 {
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 4vw, 46px);
+    margin: 0 0 18px; letter-spacing: -0.01em;
+  }
+  .final-cta p { font-size: 17px; color: rgba(255,255,255,0.85); margin: 0 0 32px; }
+  .final-cta .btn-primary { background: var(--forest); }
+  .final-cta .btn-ghost { border-color: rgba(255,255,255,0.4); }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--forest); color: rgba(245,241,230,0.6); padding: 60px 0 40px; }
+  .foot-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 40px; margin-bottom: 44px; }
+  @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+  .foot-brand { color: var(--cream); font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+  .foot-col h5 { color: var(--cream); font-size: 13.5px; font-weight: 600; margin: 0 0 16px; }
+  .foot-col ul { list-style: none; margin: 0; padding: 0; }
+  .foot-col li { margin-bottom: 11px; }
+  .foot-col a { text-decoration: none; color: inherit; font-size: 14px; }
+  .foot-col a:hover { color: var(--cream); }
+  .foot-bottom {
+    border-top: 1px solid rgba(245,241,230,0.12); padding-top: 24px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--sunset); outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="brand"><span class="mark">B6</span> Bọ Six</a>
+    <ul class="nav-links">
+      <li><a href="#san-pham">Sản phẩm</a></li>
+      <li><a href="#quy-trinh">Cách hoạt động</a></li>
+      <li><a href="#diem-den">Điểm đến</a></li>
+      <li><a href="#faq">Hỏi đáp</a></li>
+    </ul>
+    <a href="#san-pham" class="nav-cta">Đặt trại ngay</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-tag"><span class="dot"></span> Cắm trại · Giải đố · Vận động ngoài trời</div>
+      <h1 class="hero-title">Đi trại không chỉ<br>để <em>ngắm cảnh.</em><br>Đi để giải đố.</h1>
+      <p class="hero-sub">Bọ Six tổ chức tour cắm trại kết hợp giải đố thực địa cho người trẻ Việt Nam — mỗi chuyến đi là một chuỗi câu đố dẫn bạn từ điểm tập kết đến bếp lửa trại.</p>
+      <div class="hero-ctas">
+        <a href="#san-pham" class="btn btn-primary">Xem 3 cấp độ tour</a>
+        <a href="#quy-trinh" class="btn btn-ghost">Tour hoạt động thế nào?</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><b>120+</b><span>chuyến đã tổ chức</span></div>
+        <div class="hstat"><b>6</b><span>tỉnh thành có mặt</span></div>
+        <div class="hstat"><b>4.8/5</b><span>đánh giá người tham gia</span></div>
+      </div>
+    </div>
+
+    <div class="riddle-card">
+      <div class="riddle-text" id="riddleText">"Tôi không có sóng, nhưng kết nối người lạ thành bạn. Tìm tôi nơi núi gặp sương, cắm trại cạnh ánh lửa tôi. Tôi là gì?"</div>
+      <div class="riddle-actions" id="riddleOptions">
+        <button class="riddle-opt" data-correct="false">Sóng wifi trại</button>
+        <button class="riddle-opt" data-correct="true">Lửa trại "cai" mạng</button>
+        <button class="riddle-opt" data-correct="false">Đèn pin nhóm</button>
+      </div>
+      <div class="riddle-feedback" id="riddleFeedback">Chọn một đáp án — câu đố thật sẽ khó hơn thế này.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUCT — 3 TIERS
+     ============================================================ -->
+<section class="pad tiers-section" id="san-pham">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Sản phẩm</p>
+      <h2>Ba cấp độ, một cơ chế giải đố xuyên suốt</h2>
+      <p>Mỗi tour đều có chuỗi câu đố dẫn đường — khác nhau ở quãng đường, độ khó của đố, và mức độ tự lập bạn cần.</p>
+    </div>
+
+    <div class="tier-grid">
+
+      <!-- TIER 1 -->
+      <div class="tier-card">
+        <span class="tier-badge easy">
+          <svg class="tier-trail-icon" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          Cấp độ 1 — Dễ
+        </span>
+        <h3>Basecamp Cuối Tuần</h3>
+        <p class="tier-tagline">Cho người mới bắt đầu — cắm trại gần thành phố, đố nhẹ nhàng theo nhóm.</p>
+        <div class="tier-price"><span class="amt">1.290.000đ</span><span class="unit">/ người / 2N1Đ</span></div>
+        <ul class="tier-features">
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lều + đồ ngủ trại đầy đủ</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>3–4 câu đố khởi động, giải theo nhóm</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Hướng dẫn viên đi cùng toàn trình</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cách trung tâm TP.HCM/Hà Nội ≤ 2 giờ</li>
+        </ul>
+        <div class="tier-riddle-diff">
+          Độ khó câu đố:
+          <span class="diff-pip on"></span><span class="diff-pip"></span><span class="diff-pip"></span><span class="diff-pip"></span><span class="diff-pip"></span>
+        </div>
+        <a href="#" class="tier-cta" style="margin-top:20px;">Chọn Basecamp</a>
+      </div>
+
+      <!-- TIER 2 — featured -->
+      <div class="tier-card tier-feature">
+        <span class="tier-badge moderate">
+          <svg class="tier-trail-icon" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          Cấp độ 2 — Trung bình
+        </span>
+        <h3>Wild Trail Explorer</h3>
+        <p class="tier-tagline">Trekking + cắm trại rừng/núi, chuỗi đố dẫn đường suốt hành trình 3–4 ngày.</p>
+        <div class="tier-price"><span class="amt">2.450.000đ</span><span class="unit">/ người / 3N2Đ</span></div>
+        <ul class="tier-features">
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Trekking Mộc Châu / Đà Lạt / Ninh Bình</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chuỗi 8–10 câu đố dẫn đường theo trạm</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Đêm "cai" mạng bên bếp lửa</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ăn cùng homestay bản địa</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Đội giải đố nhanh nhất được thưởng</li>
+        </ul>
+        <div class="tier-riddle-diff">
+          Độ khó câu đố:
+          <span class="diff-pip on"></span><span class="diff-pip on"></span><span class="diff-pip on"></span><span class="diff-pip"></span><span class="diff-pip"></span>
+        </div>
+        <a href="#" class="tier-cta" style="margin-top:20px;">Chọn Wild Trail — phổ biến nhất</a>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="tier-card">
+        <span class="tier-badge expert">
+          <svg class="tier-trail-icon" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          Cấp độ 3 — Khó
+        </span>
+        <h3>DIY Trail Pass</h3>
+        <p class="tier-tagline">Tự dẫn đường bằng bản đồ đố offline — cho người đã có kinh nghiệm cắm trại.</p>
+        <div class="tier-price"><span class="amt">590.000đ</span><span class="unit">/ người / tự chọn ngày</span></div>
+        <ul class="tier-features">
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bộ câu đố + bản đồ offline tự giải</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Thuê lều/dụng cụ theo yêu cầu</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Đường dây SOS 24/7 khi cần</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path class="chk" d="M3 8l3.5 3.5L13 5" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Không giới hạn ngày khởi hành</li>
+        </ul>
+        <div class="tier-riddle-diff">
+          Độ khó câu đố:
+          <span class="diff-pip on"></span><span class="diff-pip on"></span><span class="diff-pip on"></span><span class="diff-pip on"></span><span class="diff-pip on"></span>
+        </div>
+        <a href="#" class="tier-cta" style="margin-top:20px;">Chọn DIY Trail Pass</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="pad process-section" id="quy-trinh">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Cách hoạt động</p>
+      <h2>Từ câu đố đầu tiên đến bếp lửa trại</h2>
+    </div>
+    <div class="process-row">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h4>Chọn cấp độ &amp; đặt chỗ</h4>
+        <p>Chọn 1 trong 3 tour theo sức và thời gian bạn có, đặt chỗ trực tuyến trong 2 phút.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h4>Nhận bộ câu đố mở đầu</h4>
+        <p>Trước ngày đi, bạn nhận câu đố đầu tiên qua tin nhắn — giải ra sẽ biết điểm tập kết.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h4>Trekking &amp; giải đố theo trạm</h4>
+        <p>Mỗi trạm nghỉ là một câu đố mới, dẫn nhóm đến trạm tiếp theo và cuối cùng là nơi cắm trại.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h4>Bếp lửa &amp; tổng kết</h4>
+        <p>Tối cuối, cả nhóm quây quần bên lửa trại, công bố đội giải đố nhanh nhất chuyến đi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DESTINATIONS
+     ============================================================ -->
+<section class="pad dest-section" id="diem-den">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Điểm đến</p>
+      <h2>Ba khu vực Bọ Six đang khai thác</h2>
+      <p>Toàn bộ điểm cắm trại đều cách trung tâm TP.HCM hoặc Hà Nội dưới 6 giờ di chuyển.</p>
+    </div>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <div class="dest-bg"></div>
+        <div class="dest-content">
+          <span class="dest-tag">Cấp độ 1 &amp; 2</span>
+          <h4>Ba Vì — Tà Năng</h4>
+          <p>Đồi cỏ, rừng thông, phù hợp nhóm mới đi trại lần đầu.</p>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-bg"></div>
+        <div class="dest-content">
+          <span class="dest-tag">Cấp độ 2</span>
+          <h4>Mộc Châu — Đà Lạt</h4>
+          <p>Cao nguyên, trekking dài ngày, đêm "cai" mạng bên lửa trại.</p>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-bg"></div>
+        <div class="dest-content">
+          <span class="dest-tag">Cấp độ 3</span>
+          <h4>Ninh Bình — Karst</h4>
+          <p>Địa hình đá vôi phức tạp — dành cho người tự dẫn đường có kinh nghiệm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRUST / SAFETY strip
+     ============================================================ -->
+<section class="pad trust-section">
+  <div class="wrap light-on-dark">
+    <div class="section-head">
+      <p class="kicker" style="color:var(--gold);">Vì sao chọn Bọ Six</p>
+      <h2>An toàn và bền vững đi cùng trải nghiệm</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="ti-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l7 3v5c0 4.5-3 7.5-7 8-4-0.5-7-3.5-7-8V5l7-3z" stroke="#9AD4AF" stroke-width="1.6"/></svg></div>
+        <h4>Hướng dẫn viên có chứng chỉ</h4>
+        <p>100% trưởng đoàn được đào tạo sơ cứu hoang dã (wilderness first-aid).</p>
+      </div>
+      <div class="trust-item">
+        <div class="ti-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#9AD4AF" stroke-width="1.6"/><path d="M10 6v4l3 2" stroke="#9AD4AF" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h4>Hỗ trợ SOS 24/7</h4>
+        <p>Đường dây khẩn cấp trong suốt hành trình, kể cả tour tự dẫn đường.</p>
+      </div>
+      <div class="trust-item">
+        <div class="ti-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3c3 3 5 5.5 5 8.5a5 5 0 01-10 0C5 8.5 7 6 10 3z" stroke="#9AD4AF" stroke-width="1.6"/></svg></div>
+        <h4>Du lịch cộng đồng</h4>
+        <p>Hợp tác với hộ dân bản địa cho bữa ăn và chỗ nghỉ dọc hành trình.</p>
+      </div>
+      <div class="trust-item">
+        <div class="ti-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 15l4-8 3 5 2-3 3 6H4z" stroke="#9AD4AF" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h4>Không để lại dấu vết</h4>
+        <p>Toàn bộ tour tuân thủ nguyên tắc Leave No Trace tại khu vực cắm trại.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="pad faq-section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Hỏi đáp</p>
+      <h2>Trước khi bạn đặt chỗ</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item open">
+        <button class="faq-q">Tôi chưa từng cắm trại, nên chọn cấp độ nào? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Basecamp Cuối Tuần (Cấp độ 1) được thiết kế riêng cho người mới — quãng đường ngắn, câu đố nhẹ nhàng, có hướng dẫn viên đi cùng toàn trình.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Câu đố có khó không, lỡ không giải được thì sao? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Mỗi trạm đều có gợi ý (hint) sau 10 phút nếu nhóm chưa giải được, và hướng dẫn viên luôn theo sát để hỗ trợ — không ai bị bỏ lại giữa đường.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Tour DIY Trail Pass có an toàn không khi tự đi? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Có đường dây SOS 24/7 và bản đồ offline chi tiết. Tuy nhiên tour này khuyến nghị cho người đã có kinh nghiệm cắm trại/trekking cơ bản.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Có thể đặt theo nhóm lớn (công ty, lớp học) không? <span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Có, Bọ Six nhận đặt nhóm từ 10 người trở lên với chương trình câu đố tùy chỉnh theo yêu cầu — liên hệ để nhận báo giá riêng.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="pad final-cta">
+  <div class="wrap">
+    <h2>Câu đố tiếp theo đang chờ ở điểm tập kết.</h2>
+    <p>Chọn tour, nhận câu đố đầu tiên, và bắt đầu hành trình cuối tuần này.</p>
+    <div class="hero-ctas" style="justify-content:center;">
+      <a href="#san-pham" class="btn btn-primary">Xem 3 cấp độ tour</a>
+      <a href="#faq" class="btn btn-ghost">Còn thắc mắc?</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Bọ Six</div>
+        <p style="font-size:14px; line-height:1.6; max-width:260px;">Doanh nghiệp lữ hành chuyên tour cắm trại kết hợp giải đố cho người trẻ Việt Nam.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Sản phẩm</h5>
+        <ul>
+          <li><a href="#san-pham">Basecamp Cuối Tuần</a></li>
+          <li><a href="#san-pham">Wild Trail Explorer</a></li>
+          <li><a href="#san-pham">DIY Trail Pass</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Thông tin</h5>
+        <ul>
+          <li><a href="#quy-trinh">Cách hoạt động</a></li>
+          <li><a href="#diem-den">Điểm đến</a></li>
+          <li><a href="#faq">Hỏi đáp</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Liên hệ</h5>
+        <ul>
+          <li><a href="#">hello@bosix.vn</a></li>
+          <li><a href="#">Đặt tour nhóm</a></li>
+          <li><a href="#">Trở thành đối tác</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 Bọ Six. Đã đăng ký kinh doanh lữ hành nội địa.</span>
+      <span>Chính sách bảo mật · Điều khoản sử dụng</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Riddle mini-interaction in hero
+  document.querySelectorAll('.riddle-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const options = document.querySelectorAll('.riddle-opt');
+      const feedback = document.getElementById('riddleFeedback');
+      const isCorrect = btn.getAttribute('data-correct') === 'true';
+      options.forEach(o => o.disabled = true);
+      if (isCorrect) {
+        btn.classList.add('correct');
+        feedback.textContent = 'Chính xác! Đây là kiểu đố bạn sẽ gặp xuyên suốt tour.';
+      } else {
+        btn.classList.add('wrong');
+        options.forEach(o => { if (o.getAttribute('data-correct') === 'true') o.classList.add('correct'); });
+        feedback.textContent = 'Gần đúng rồi — đáp án là "Lửa trại cai mạng".';
+      }
+      setTimeout(() => {
+        options.forEach(o => { o.disabled = false; o.classList.remove('correct', 'wrong'); });
+        feedback.textContent = 'Chọn một đáp án — câu đố thật sẽ khó hơn thế này.';
+      }, 2600);
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
